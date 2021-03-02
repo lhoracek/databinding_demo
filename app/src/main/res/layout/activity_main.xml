@@ -5,133 +5,17 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
-            type="cz.lhoracek.bottomsheet.ActivityViewModel" />
+            type="cz.lhoracek.databinding.ActivityViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".MainActivity">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()-> viewModel.buttonClick.invoke(1)}"
-                android:text="Toggle coordinator sheet"
-                app:layout_constraintBottom_toTopOf="@id/btn_two"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()-> viewModel.buttonClick.invoke(2)}"
-                android:text="Toggle webView sheet"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_one" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <FrameLayout
-            android:id="@+id/sheet2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FF0000"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <cz.lhoracek.bottomsheet.NestedScrollWebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/sheet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:background="#FF0000"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-
-
-             <!--   <FrameLayout
-                    android:id="@+id/above"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#22000000"
-                    android:padding="8dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:onClick="@{() -> viewModel.toggleCoordinatorSheetContent.invoke()}"
-                        android:text="Toggle content" />
-                </FrameLayout>
--->
-
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/scroll"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/colorAccent"
-                    android:fillViewport="true">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#66000000"
-                        android:padding="32dp"
-                        android:text="@{viewModel.contentText}" />
-                </androidx.core.widget.NestedScrollView>
-
-             <!--   <LinearLayout
-                    android:id="@+id/below"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:background="?attr/colorAccent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:background="#44000000"
-                        android:padding="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Footer" />
-                    </FrameLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_margin="20dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:visibility="@{viewModel.coordinatorSheetContentVisible ? View.VISIBLE : View.GONE}" />
-                </LinearLayout>
--->
-        </FrameLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:itemBinding="@{viewModel.itemBinding}"
+        app:items="@{viewModel.items}"
+        tools:listitem="@layout/item_row"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </layout>

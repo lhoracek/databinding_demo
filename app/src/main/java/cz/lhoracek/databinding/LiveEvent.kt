@@ -1,4 +1,4 @@
-package cz.lhoracek.bottomsheet
+package cz.lhoracek.databinding
 
 import androidx.annotation.MainThread
 import androidx.collection.ArraySet

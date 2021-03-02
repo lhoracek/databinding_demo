@@ -1,4 +1,4 @@
-package cz.lhoracek.bottomsheet
+package cz.lhoracek.databinding
 
 import org.junit.Test
 
