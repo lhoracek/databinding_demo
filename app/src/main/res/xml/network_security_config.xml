@@ -1,0 +1,7 @@
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">google.com</domain>
+        <domain includeSubdomains="true">seznam.cz</domain>
+        <domain includeSubdomains="true">placeholder.cz</domain>
+    </domain-config>
+</network-security-config>
