@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 class ActivityViewModel : ViewModel() {
     private val oddHandler: (String) -> Unit = { Timber.d("Click on ODD: $it") }
     private val deleteHandler: (String) -> Unit = { items.update(items.toMutableList().also { list -> list.removeIf { item -> item.id == it } }) }
-    val items = AsyncDiffObservableList(WithIdCallback())
+    val items = AsyncDiffObservableList(WithIdCallback<Opportunity>())
     val itemBinding = ItemBinding.of<Opportunity> { itemBinding, position, item ->
         itemBinding.set(BR.item, if (position == 0) R.layout.item_row_special else R.layout.item_row)
         itemBinding.bindExtra(BR.oddHandler, oddHandler)
