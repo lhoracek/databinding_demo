@@ -1,4 +1,4 @@
-package cz.lhoracek.databinding
+package cz.lhoracek.databinding.logging
 
 import android.util.Log
 import timber.log.Timber

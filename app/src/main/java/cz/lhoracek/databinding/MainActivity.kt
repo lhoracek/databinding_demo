@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
 import cz.lhoracek.databinding.binding.WithIdCallback
 import cz.lhoracek.databinding.databinding.ActivityMainBinding
 import cz.lhoracek.databinding.model.Odd
@@ -18,7 +17,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import timber.log.Timber
 import java.util.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,10 +46,7 @@ class ActivityViewModel : ViewModel() {
     private val deleteHandler: (String) -> Unit = { items.update(items.toMutableList().also { list -> list.removeIf { item -> item.id == it } }) }
     val items = AsyncDiffObservableList(WithIdCallback())
     val itemBinding = ItemBinding.of<Opportunity> { itemBinding, position, item ->
-        itemBinding.set(
-            BR.item,
-            if (position == 0) R.layout.item_row_special else R.layout.item_row
-        )
+        itemBinding.set(BR.item, if (position == 0) R.layout.item_row_special else R.layout.item_row)
         itemBinding.bindExtra(BR.oddHandler, oddHandler)
         itemBinding.bindExtra(BR.deleteHandler, deleteHandler)
     }
@@ -59,16 +54,11 @@ class ActivityViewModel : ViewModel() {
     val menuClick: (Int) -> Unit = {
         when (it) {
             R.id.add_item -> items.update(
-                items.toMutableList().also {
-                    it.add(
-                        Math.min(1, items.size), Opportunity(
+                items.toMutableList().also { it.add(Math.min(1, items.size), Opportunity(
                             Lorem.words(3),
                             UUID.randomUUID().toString(),
                             (1..(2..6).random()).map { Odd(it / 2.0f, UUID.randomUUID().toString()) }.toList()
-                        )
-                    )
-                })
+                        ))})
         }
-        Timber.d("Clicked menu -> items size ${items.size}")
     }
 }

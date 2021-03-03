@@ -1,6 +1,7 @@
 package cz.lhoracek.databinding
 
 import android.app.Application
+import cz.lhoracek.databinding.logging.ErrorReportingTree
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
