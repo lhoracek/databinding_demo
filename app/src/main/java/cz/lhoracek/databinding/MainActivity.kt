@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
+import cz.lhoracek.databinding.binding.WithIdCallback
 import cz.lhoracek.databinding.databinding.ActivityMainBinding
 import cz.lhoracek.databinding.model.Odd
 import cz.lhoracek.databinding.model.Opportunity
@@ -43,21 +44,9 @@ class MainActivity : AppCompatActivity() {
 }
 
 class ActivityViewModel : ViewModel() {
-
-    private val callback = object : DiffUtil.ItemCallback<Opportunity>() {
-        override fun areItemsTheSame(oldItem: Opportunity, newItem: Opportunity): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Opportunity, newItem: Opportunity): Boolean {
-            return true
-        }
-    }
     private val oddHandler: (String) -> Unit = { Timber.d("Click on ODD: $it") }
     private val deleteHandler: (String) -> Unit = { items.update(items.toMutableList().also { list -> list.removeIf { item -> item.id == it } }) }
-
-    val items = AsyncDiffObservableList(callback)
-
+    val items = AsyncDiffObservableList(WithIdCallback())
     val itemBinding = ItemBinding.of<Opportunity> { itemBinding, position, item ->
         itemBinding.set(
             BR.item,

@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="12dp"
-            android:text="@{String.valueOf(item.odd)}" />
+            android:text="@{String.valueOf(item.odd)}"
+            tools:text="1.23"/>
     </FrameLayout>
 </layout>
