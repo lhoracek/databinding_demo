@@ -7,7 +7,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import cz.lhoracek.databinding.binding.WithIdCallback
 import cz.lhoracek.databinding.databinding.ActivityMainBinding
 import cz.lhoracek.databinding.model.Odd
@@ -17,14 +16,15 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList
 import timber.log.Timber
 import java.util.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: ActivityViewModel
+    private lateinit var binding: ActivityMainBinding
+    private var viewModel: ActivityViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ActivityViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -46,7 +46,7 @@ class ActivityViewModel : ViewModel() {
     private val deleteHandler: (String) -> Unit = { items.update(items.toMutableList().also { list -> list.removeIf { item -> item.id == it } }) }
     val items = AsyncDiffObservableList(WithIdCallback<Opportunity>())
     val itemBinding = ItemBinding.of<Opportunity> { itemBinding, position, item ->
-        itemBinding.set(BR.item, if (position == 0) R.layout.item_row_special else R.layout.item_row)
+        itemBinding.set(BR.item, if (position == 0) R.layout.item_row_special else R.layout.item_row) // binding based on position or type
         itemBinding.bindExtra(BR.oddHandler, oddHandler)
         itemBinding.bindExtra(BR.deleteHandler, deleteHandler)
     }
