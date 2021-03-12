@@ -4,6 +4,7 @@ package cz.lhoracek.databinding
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
@@ -72,7 +73,9 @@ class ItemViewModel(item: Opportunity) : WithId {
 }
 
 class ActivityViewModel : ViewModel() {
-    private val oddHandler: (String) -> Unit = { Timber.d("Click on ODD: $it") }
+    private val oddHandler: (String) -> Unit = {
+        Timber.d("Click on ODD: $it")
+    }
     private val deleteHandler: (String) -> Unit = { items.update(items.toMutableList().also { list -> list.removeIf { item -> item.id == it } }) }
     val items = AsyncDiffObservableList(WithIdCallback<ItemViewModel>())
     val itemBinding = ItemBinding.of<ItemViewModel> { itemBinding, position, item ->
